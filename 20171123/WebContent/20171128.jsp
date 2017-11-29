@@ -7,15 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%
-String testId="test";
-String testPwd="1234";
-String testName="홍길동";
 
-String id=request.getParameter("id");
-String pwd=request.getParameter("pwd");
-if(id==null){
-%>
 <script>
 function checkVlaue(){ 
 	var id=document.getElementById("id"); //var id=document.getElementById("id").value; 
@@ -33,33 +25,30 @@ function checkVlaue(){
 	}
 	return true;
 }
+
+function formSubmit(){
+	var param = {};
+	param["id"]=document.getElementById("id").value;
+	param["pwd"]=document.getElementById("pwd").value;
+	//alert(param);
+	//alert(param.id); //param.id 랑 param.pwd 자바스크립트만 가능 !!
+	//alert(param.pwd);//엄청나다. 
+	//alert(JSON.stringify(param)); //{"id":"1234","pwd":"2134"} 이런식으로 나옴. 이런 기능들은 스크립트에서만 가능. 
+	//웹검색 등등 사그리 JSON으로 함
+	param=[{"id":"test1","pwd":"password1"},
+		{"id":"test2","pwd":"password2"}];
+	alert(param[1].id); 
+	alert(param[0].pwd);
+
+
+}									
 </script>
-<form method="get" action="" onsubmit="return checkVlaue()"><br>
+<form method="post" action="/tt.20171128" onsubmit="return checkVlaue()"><br>
 아이디 : <input type="text" name="id" id="id">
 비밀번호 : <input type="password" name="pwd" id="pwd" >
-<input type="submit" value="login">
+<!-- <input type="submit" value="login"> -->
+<input type="button" value="login" onclick="formSubmit()">
 </form>
-<%
-}else{
-	String msg="";
-	if(id.equals(testId)){
-		if(pwd.equals(testPwd)){
-		out.println(testName+"님 로그인에 성공하셨습니다!");
-		}else{
-			msg="입력하신 비밀번호를 확인해주세요.";
-		}
-	}else{
-		msg="입력하신 id["+id+"]는 없는 아이디입니다.";		
-	}
-	if(!msg.equals("")){ //페이지뤼케스트세션어플리케이션
-%>
-<script>
-	alert("<%=msg%>");
-	location.href="20171128.jsp"; //아이디와비번둘다틀리면, 다시 로그인화면으로 옴
-</script>
-<%		
-	}
-}
-%>
+
 </body>
 </html>
