@@ -1,16 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee                       http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-    <welcome-file-list>
+<!--     <welcome-file-list> -->
+<!--         <welcome-file>index.html</welcome-file> -->
+<!--         <welcome-file>index.htm</welcome-file> -->
+<!--         <welcome-file>index.jsp</welcome-file> -->
+<!--     </welcome-file-list> -->
+<!--     <servlet> -->
+<!--     	<servlet-name>LoginServlet</servlet-name> 꼭로그인서브릿아니고 asdf이런거 해도 됨. -->
+<!--     	<servlet-class>com.test.jsp.servlet.LoginServlet</servlet-class> -->
+<!--     </servlet> -->
+<!--     <servlet-mapping> -->
+<!--     	<servlet-name>LoginServlet</servlet-name> 꼭로그인서브릿아니고 asdf이런거 해도 됨. -->
+<!--     	<url-pattern>*.login</url-pattern> *이 있으니까 어떠한게 와도 상관없음.login만 붙이면됨. -->
+<!--     </servlet-mapping> -->
+<!-- </web-app> -->
+<welcome-file-list>
         <welcome-file>index.html</welcome-file>
         <welcome-file>index.htm</welcome-file>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
     <servlet>
-    	<servlet-name>LoginServlet</servlet-name> <!-- 꼭로그인서브릿아니고 asdf이런거 해도 됨. -->
-    	<servlet-class>com.test.jsp.servlet.LoginServlet</servlet-class>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class> com.test.jsp.servlet.LoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-    	<servlet-name>LoginServlet</servlet-name> <!-- 꼭로그인서브릿아니고 asdf이런거 해도 됨. -->
-    	<url-pattern>*.login</url-pattern><!--  *이 있으니까 어떠한게 와도 상관없음.login만 붙이면됨. -->
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>*.login</url-pattern> 
     </servlet-mapping>
+ 
+
 </web-app>
