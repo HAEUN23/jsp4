@@ -6,12 +6,25 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
     <servlet>
-    	<servlet-name>LoginServlet</servlet-name> <!-- 꼭로그인서브릿아니고 asdf이런거 해도 됨. -->
+    	<servlet-name>LoginServlet</servlet-name> 
     	<servlet-class>com.test.jsp.servlet.LoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-    	<servlet-name>LoginServlet</servlet-name> <!-- 꼭로그인서브릿아니고 asdf이런거 해도 됨. -->
-    	<url-pattern>*.20171128</url-pattern> <!-- *이 있으니까 어떠한게 와도 상관없음.login만 붙이면됨. --> 
+    	<servlet-name>LoginServlet</servlet-name> 
+    	<url-pattern>*.20171128</url-pattern> 
+<!--  위에는 .jsp에서 웹정보 가지고 온거고. -->
+		  </servlet-mapping>
+
+<!-- 아래는 .java에서 웹정보 가지고 올거임. com.test.jsp > service와 연관돼있음. 20171207-->
+    <servlet>
+    	<servlet-name>UserServlet</servlet-name> 
+    	<servlet-class>com.test.jsp.servlet.UserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+    	<servlet-name>UserServlet</servlet-name> 
+    	<url-pattern>*.user</url-pattern> 
+
     </servlet-mapping>
+
 </web-app>
 
