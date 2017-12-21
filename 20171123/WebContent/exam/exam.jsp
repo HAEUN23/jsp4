@@ -5,6 +5,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap" %>
 <%@ include file="/common/header.jsp" %>
+<!--크기 순서: page < request < session < application -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,35 +13,19 @@
 <title>List Test</title>
 </head>
 <body>
-<%ListExam le=new ListExam();
-ArrayList<HashMap<String,String>> userlist =le.getUserList();
-%>
-<table border="1";>
-	<tr>
-<!-- 		<th>이름</th> -->
-<!-- 		<th>나이</th> -->
-		<th>유저번호</th>
-		<th><%=str1%></th>
-		<th><%=str2%></th>
-		<th>주소</th>
-		<th>아이디</th>
-		<th>비밀번호</th>
-		<th>부서</th>
-		<th>부서특징</th>
-	</tr>
-<!-- 20171206방식말고 아래는 : 값을 뿌려주긴하는데 Map이라는게 순서 딱히 없이 저장했으니까 뿌리는것도 지 맘대로여서 문제임  -->
-<!-- 그래서 뿌리고 난 뒤, 그 후에 메뉴탭을 뿌리는 방법으로 해결 할 수 있음 -->
-<%
-for(HashMap<String,String> hm:userlist){
-	out.println("<tr>");
-	Iterator<String> it=hm.keySet().iterator();
-	while(it.hasNext()){
-		String key=it.next();
-		out.println("<td>"+hm.get(key)+"</td>");
-	}
-	out.println("</tr>");
-}
-%>
-</table>
+<c:set var="test" value="테스트" scope="page"/> <!-- 그냥 값넣을거면 scope안해줘도 됨. 디폴트값페이지 --> <!-- 페이지는 내 페이지에서만 가능 -->
+<!-- var:변수명 value: 그변수에들어간값  -->
+test :${test}
+<%-- <% //jsp 예전우리 방식대로 했으면 아래와 같음 --%>
+<!-- String str="test";  -->
+<!-- out.println(str); -->
+<%-- %> --%>
+
+
+<c:set var="s_test" value="세션테스트" scope="session"/> <br> <!-- 세션(브라우저와 서버간의 연결된거)은 내 세션내에 모든곳에서 가능 --> 
+session test:${s_test}
+
+<c:set var="a_test" value="어플리케이션테스트" scope="application"/><br> <!-- 한서버에 application은 한개 가능함. 세션보다 큰 거임! 그래서 용량이크고 과부하올 수 있음.-->
+application test:${a_test}
 </body>
 </html>
