@@ -17,7 +17,7 @@ public class EncodingFilter implements Filter{//매번 파일마다 "utf-8"이�
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain fc)
-			throws IOException, ServletException {//여기에 필터를 걸거예요
+			throws IOException, ServletException {
 		req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8"); //얘를 다시 fc이용해서 내보내줘야함 

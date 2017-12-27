@@ -12,18 +12,24 @@
 		<tbody id="result_tbody"></tbody>
 			<tr>
 				<td>부서번호</td>
-				<td>${depart.dino}</td>
+				<td>${depart.diNo}</td>
 			</tr>
 			<tr>
 				<td>부서이름</td>
-				<td>${depart.diname}</td>
+				<td>${depart.diName}</td>
 			</tr>
 			<tr>
 				<td>부서설명</td>
-				<td>${depart.didesc}</td>
+				<td>${depart.diEtc}</td>
 			</tr>
-
+			<tr>
+				<td colspan="2"><button onclick="goUpdate()">수정</button></td>
 	</table>	
 </div>
+<script>
+	function goUpdate(){
+		location.href="/depart/update?dino=${depart.diNo}";
+	}
+</script>
 </body>
 </html>

@@ -90,6 +90,7 @@ public class UserServiceImpl implements UserService{ //자바-인터페이스 �
 		ps.setString(3,(String)hm.get("pwd"));
 		ps.setString(4,(String)hm.get("age"));
 		ps.setString(5,(String)hm.get("address"));
+		//ps.setInt(6,(Integer)hm.get("dino"));
 		result=ps.executeUpdate();
 		}
 		catch(Exception e) {
@@ -137,13 +138,14 @@ public class UserServiceImpl implements UserService{ //자바-인터페이스 �
 		//try안에 있는 소스는 mariadb에 추가하는 작업
 		String sql="insert into user_info(username,userid,";//+" userpwd,userage,useraddress)"+" values(?,?,?,?,?)";
 		sql+=" userpwd,userage,useraddress,dino)";
-		sql+=" values(?,?,?,?,?,1)";
+		sql+=" values(?,?,?,?,?,?)";
 		PreparedStatement ps=con.prepareStatement(sql);
 		ps.setString(1,ui.getUserName());
 		ps.setString(2,ui.getUserId());
 		ps.setString(3,ui.getUserPwd());
 		ps.setInt(4,ui.getUserAge());
 		ps.setString(5,ui.getUserAddress());
+		ps.setString(6,ui.getDiNo());
 		result=ps.executeUpdate();
 		}
 		catch(Exception e) {

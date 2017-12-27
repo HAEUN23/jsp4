@@ -2,6 +2,8 @@ package com.test.jsp.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.test.jsp.dto.DepartInfo;
 import com.test.jsp.service.DepartService;
 import com.test.jsp.service.DepartServiceImpl;
 import com.test.jsp.service.UserService;
@@ -45,18 +48,53 @@ public class DepartServlet extends HttpServlet{
 		
 		//if(uri.indexOf("insert")!=-1) {}
 		if(cmd.equals("list")) { //UserServlet처럼 다오+서버 같이하면 복잡하니까
-			req.setAttribute("departList", ds.selectDepartList());
-		}else if(cmd.equals("view")) {//여기(DepartServlet)서는 분기만하고, 서비스뷰어는 다른 곳에 함 
-			String diNo=req.getParameter("diNo");
+			String search=req.getParameter("searchOption");
+			String searchStr=req.getParameter("diName");
+			/*Map<String,String[]> param=req.getParameterMap();
+			Iterator<String> it=param.keySet().iterator();
+			while(it.hasNext()) {
+				String key=it.next();
+				System.out.println(key+":"+param.get(key)[0]);
+			}*/
+			req.setAttribute("departList", ds.selectDepartList(search,searchStr));
+		}else if(cmd.equals("view")||cmd.equals("update")) {
+			String diNo=req.getParameter("dino");
 			System.out.println(diNo);
-			req.setAttribute("depart", ds.selectDepart());
-		}else if(cmd.equals("update")) {
-			req.setAttribute("depart", ds.selectDepart());
+			req.setAttribute("depart", ds.selectDepart(Integer.parseInt(diNo)));
 		}else if(cmd.equals("insert")) {
 			
-		}else {uri="/error";}
+		}else if(cmd.equals("insert_ok")) {
+			String diName=req.getParameter("diName");
+			String diEtc=req.getParameter("diEtc");
+			DepartInfo di=new DepartInfo();
+			di.setDiName(diName);
+			di.setDiEtc(diEtc);
+			req.setAttribute("insert", ds.insertDepart(di));
+			uri="/depart/list";
+		}else if(cmd.equals("delete")) {
+			int diNo=Integer.parseInt(req.getParameter("dino"));
+			DepartInfo di=new DepartInfo();
+			di.setDiNo(diNo);
+			int result=ds.deleteDepart(di);
+			String msg="삭제 됐습니다.";
+			if(result!=1) {msg="삭제 실패하였습니다.";}
+			req.setAttribute("msg",msg);
+			uri="/depart/list";
+		}else if(cmd.equals("update_ok")) {
+			DepartInfo di=new DepartInfo();
+			int diNo=Integer.parseInt(req.getParameter("diNo"));
+			String diName=req.getParameter("diName");
+			String diEtc=req.getParameter("diEtc");
+			di.setDiNo(diNo);
+			di.setDiName(diName);
+			di.setDiEtc(diEtc);
+			//ds.updateDepart(di);
+			req.setAttribute("update", ds.updateDepart(di));
+			uri="/depart/update";
+		}
+		else {uri="/error";}
 		//rd=req.getRequestDispatcher(uri+".jsp"); // 그래서 /depart + .jsp로 바뀜
-		rd=req.getRequestDispatcher("/WEB-INF/view/"+uri+".jsp");
+		rd =req.getRequestDispatcher("/WEB-INF/view/" + uri+".jsp");
 		rd.forward(req, res);//내가 받은 req, res를 error.jsp에 넘김
 	}
 }

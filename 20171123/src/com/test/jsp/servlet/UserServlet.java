@@ -15,12 +15,14 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.test.jsp.dto.UserInfo;
+import com.test.jsp.service.DepartService;
+import com.test.jsp.service.DepartServiceImpl;
 import com.test.jsp.service.UserService;
 import com.test.jsp.service.UserServiceImpl;
 
 public class UserServlet extends HttpServlet{
 	UserService us=new UserServiceImpl();
-	
+	DepartService ds=new DepartServiceImpl();
 	public void doGet(HttpServletRequest req,HttpServletResponse res)throws 
 	IOException, ServletException{
 		doProcess(req,res);
@@ -134,6 +136,9 @@ public class UserServlet extends HttpServlet{
 			}
 			Gson gs = new Gson();
 			out.print(gs.toJson(hm));
+		}else if(cmd.equals("depart")) {
+			Gson gs = new Gson();
+			out.println(gs.toJson(ds.selectDepartList(null, null)));//json형태로 바꾸기
 		}
 		else {
 			res.sendRedirect("/error.jsp");//res.sendRedirect("error.jsp");

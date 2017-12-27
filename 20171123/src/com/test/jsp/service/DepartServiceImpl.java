@@ -14,12 +14,12 @@ import com.test.jsp.dto.DepartInfo;
 public class DepartServiceImpl implements DepartService{
 
 	@Override
-	public ArrayList<DepartInfo> selectDepartList() {
+	public ArrayList<DepartInfo> selectDepartList(String search, String searchStr) {
 		ArrayList<DepartInfo> departList=new ArrayList<DepartInfo>();
 		DBCon dbCon =new DBCon();
 		try {
 			DepartDAO ddao=new DepartDAOImpl(dbCon.getConnection());
-			departList=ddao.selectDepartList();
+			departList=ddao.selectDepartList(search, searchStr);
 		} 
 		catch (ClassNotFoundException e) {e.printStackTrace();} 
 		catch (SQLException e) {e.printStackTrace();}
@@ -31,24 +31,80 @@ public class DepartServiceImpl implements DepartService{
 	}
 	
 	@Override
-	public DepartInfo selectDepart() {
-		
-	}
-	
-	@Override
 	public DepartInfo selectDepart(int diNo) {
-		
-	}
-
-	@Override
-	public void updateDepart(HttpServletRequest req) {
-		
-	}
-
-	@Override
-	public void insertDepart(HttpServletRequest req) {
-		
+		DepartInfo di = null;
+		DBCon dbCon = new DBCon();
+		try {
+			DepartDAO ddao = new DepartDAOImpl(dbCon.getConnection());
+			di = ddao.selectDepart(diNo);
+		} catch (ClassNotFoundException |SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				dbCon.closeCon();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return di;
 	}
 	
+	@Override
+	public DepartInfo selectDepart() {
+		HashMap<String,Object> hm = new HashMap<String,Object>();
+		hm.put("dino", 1);
+		hm.put("diname",1+"번째 부서");
+		hm.put("didetc",1+"번째 부서 설명");
+		return null;
+	}
+
+	
+	@Override
+	public int updateDepart(DepartInfo di) {
+		int result=0;
+		DBCon dbCon = new DBCon();
+		try {
+			DepartDAO ddao = new DepartDAOImpl(dbCon.getConnection());
+			result=ddao.updateDepart(di);
+		}catch (ClassNotFoundException |SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {dbCon.closeCon();} 
+			catch (SQLException e) {e.printStackTrace();}
+		}
+		return result;
+	}
+
+	@Override
+	public int insertDepart(DepartInfo di) {
+		int result=0;
+		DBCon dbCon = new DBCon();
+		try {
+			DepartDAO ddao = new DepartDAOImpl(dbCon.getConnection());
+			result=ddao.insertDepart(di);
+		}catch (ClassNotFoundException |SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {dbCon.closeCon();} 
+			catch (SQLException e) {e.printStackTrace();}
+		}
+		return result;	
+	}
+	
+	@Override
+	public int deleteDepart(DepartInfo di) {
+		int result=0;
+		DBCon dbCon = new DBCon();
+		try {
+			DepartDAO ddao = new DepartDAOImpl(dbCon.getConnection());
+			result=ddao.deleteDepart(di);
+		}catch (ClassNotFoundException |SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {dbCon.closeCon();} 
+			catch (SQLException e) {e.printStackTrace();}
+		}
+		return result;	
+	}
 
 }

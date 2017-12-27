@@ -53,7 +53,7 @@ $("#loginBtn").click(function(){ //jquery를 다운 받았으니까. 아래  log
 	params["id"]=id;
 	params["pwd"]=pwd;
 	params["cmd"]="login";
-	$.ajax({
+	$.ajax({ //페이지에서 원하는 부분만 바꾸는 기능 ajax
 		type:"post",
 		url:url,
 		dataType:"json",
